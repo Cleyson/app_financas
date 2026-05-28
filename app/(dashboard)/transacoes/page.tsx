@@ -29,8 +29,8 @@ export default async function TransacoesPage({ searchParams }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Transações</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Transações</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             {transactions?.length ?? 0} transação(ões) encontrada(s)
           </p>
         </div>

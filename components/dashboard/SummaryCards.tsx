@@ -11,25 +11,25 @@ export function SummaryCards({ totalReceitas, totalDespesas, saldo }: Props) {
     {
       title: 'Receitas',
       value: totalReceitas,
-      color: 'text-emerald-600',
-      bg: 'bg-emerald-50',
-      border: 'border-emerald-100',
+      color: 'text-emerald-600 dark:text-emerald-400',
+      bg: 'bg-emerald-50 dark:bg-emerald-950/30',
+      border: 'border-emerald-100 dark:border-emerald-900/50',
       icon: '↑',
     },
     {
       title: 'Despesas',
       value: totalDespesas,
-      color: 'text-red-600',
-      bg: 'bg-red-50',
-      border: 'border-red-100',
+      color: 'text-red-600 dark:text-red-400',
+      bg: 'bg-red-50 dark:bg-red-950/30',
+      border: 'border-red-100 dark:border-red-900/50',
       icon: '↓',
     },
     {
       title: 'Saldo',
       value: saldo,
-      color: saldo >= 0 ? 'text-blue-600' : 'text-red-600',
-      bg: saldo >= 0 ? 'bg-blue-50' : 'bg-red-50',
-      border: saldo >= 0 ? 'border-blue-100' : 'border-red-100',
+      color: saldo >= 0 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400',
+      bg: saldo >= 0 ? 'bg-blue-50 dark:bg-blue-950/30' : 'bg-red-50 dark:bg-red-950/30',
+      border: saldo >= 0 ? 'border-blue-100 dark:border-blue-900/50' : 'border-red-100 dark:border-red-900/50',
       icon: '=',
     },
   ]
@@ -39,10 +39,10 @@ export function SummaryCards({ totalReceitas, totalDespesas, saldo }: Props) {
       {cards.map((card) => (
         <div
           key={card.title}
-          className={`rounded-xl border p-5 bg-white ${card.border}`}
+          className={`rounded-xl border p-5 bg-white dark:bg-slate-900 transition-colors ${card.border}`}
         >
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium text-slate-600">{card.title}</span>
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{card.title}</span>
             <span className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold ${card.bg} ${card.color}`}>
               {card.icon}
             </span>

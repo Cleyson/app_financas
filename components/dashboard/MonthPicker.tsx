@@ -33,16 +33,16 @@ export function MonthPicker({ month, year }: Props) {
     <div className="flex items-center gap-2">
       <button
         onClick={prev}
-        className="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center text-slate-600 transition"
+        className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition"
       >
         ‹
       </button>
-      <span className="text-sm font-medium text-slate-700 min-w-[130px] text-center">
+      <span className="text-sm font-medium text-slate-700 dark:text-slate-300 min-w-[130px] text-center">
         {MONTHS[month - 1]} {year}
       </span>
       <button
         onClick={next}
-        className="w-8 h-8 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center text-slate-600 transition"
+        className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition"
       >
         ›
       </button>

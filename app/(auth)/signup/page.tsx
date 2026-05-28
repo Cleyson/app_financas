@@ -30,27 +30,30 @@ export default function SignupPage() {
     }
   }
 
+  const inputCls = "w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500"
+  const labelCls = "text-sm font-medium text-slate-700 dark:text-slate-300"
+
   // Tela de confirmação de e-mail
   if (sentTo) {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center">
-        <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 text-center transition-colors">
+        <div className="w-14 h-14 bg-blue-50 dark:bg-blue-950/40 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
           ✉️
         </div>
-        <h1 className="text-xl font-semibold text-slate-900 mb-2">Verifique seu e-mail</h1>
-        <p className="text-slate-600 text-sm mb-1">
+        <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Verifique seu e-mail</h1>
+        <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">
           Enviamos um link de confirmação para:
         </p>
-        <p className="font-medium text-slate-900 text-sm mb-4">{sentTo}</p>
-        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-left mb-6">
-          <p className="text-amber-800 text-sm font-medium mb-1">⚠️ Verifique também o spam</p>
-          <p className="text-amber-700 text-xs">
+        <p className="font-medium text-slate-900 dark:text-slate-100 text-sm mb-4">{sentTo}</p>
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-3 text-left mb-6">
+          <p className="text-amber-800 dark:text-amber-400 text-sm font-medium mb-1">⚠️ Verifique também o spam</p>
+          <p className="text-amber-700 dark:text-amber-500 text-xs">
             O e-mail pode ter chegado na pasta de spam ou lixo eletrônico. Marque como "não é spam" para receber futuros e-mails normalmente.
           </p>
         </div>
-        <p className="text-slate-500 text-xs">
+        <p className="text-slate-500 dark:text-slate-400 text-xs">
           Após confirmar, volte para{' '}
-          <Link href="/login" className="text-blue-600 font-medium hover:underline">
+          <Link href="/login" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
             fazer login
           </Link>
         </p>
@@ -59,13 +62,13 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-      <h1 className="text-2xl font-semibold text-slate-900 mb-1">Criar conta</h1>
-      <p className="text-slate-500 text-sm mb-6">Comece a controlar suas finanças hoje</p>
+    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 transition-colors">
+      <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Criar conta</h1>
+      <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">Comece a controlar suas finanças hoje</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1.5">
-          <label htmlFor="email" className="text-sm font-medium text-slate-700">
+          <label htmlFor="email" className={labelCls}>
             Email
           </label>
           <input
@@ -75,12 +78,12 @@ export default function SignupPage() {
             required
             autoComplete="email"
             placeholder="seu@email.com"
-            className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className={inputCls}
           />
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="password" className="text-sm font-medium text-slate-700">
+          <label htmlFor="password" className={labelCls}>
             Senha
           </label>
           <input
@@ -90,12 +93,12 @@ export default function SignupPage() {
             required
             minLength={6}
             placeholder="Mínimo 6 caracteres"
-            className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className={inputCls}
           />
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="confirmPassword" className="text-sm font-medium text-slate-700">
+          <label htmlFor="confirmPassword" className={labelCls}>
             Confirmar senha
           </label>
           <input
@@ -104,12 +107,12 @@ export default function SignupPage() {
             type="password"
             required
             placeholder="••••••••"
-            className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className={inputCls}
           />
         </div>
 
         {error && (
-          <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+          <p className="text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900 px-3 py-2.5 rounded-lg">{error}</p>
         )}
 
         <button
@@ -121,9 +124,9 @@ export default function SignupPage() {
         </button>
       </form>
 
-      <p className="text-center text-sm text-slate-500 mt-6">
+      <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
         Já tem conta?{' '}
-        <Link href="/login" className="text-blue-600 font-medium hover:underline">
+        <Link href="/login" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
           Entrar
         </Link>
       </p>

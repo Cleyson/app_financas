@@ -33,8 +33,8 @@ export default async function DashboardPage({ searchParams }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Dashboard</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Resumo financeiro do mês</p>
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Dashboard</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Resumo financeiro do mês</p>
         </div>
         <Suspense>
           <MonthPicker month={month} year={year} />
@@ -51,17 +51,17 @@ export default async function DashboardPage({ searchParams }: Props) {
       {/* Charts + Recent Transactions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Category Chart */}
-        <div className="bg-white rounded-xl border border-slate-100 p-5">
-          <h2 className="text-sm font-semibold text-slate-700 mb-4">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-5 transition-colors">
+          <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
             Despesas por Categoria
           </h2>
           <CategoryChart data={stats.chartData} />
         </div>
 
         {/* Recent Transactions */}
-        <div className="bg-white rounded-xl border border-slate-100 p-5">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-5 transition-colors">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-slate-700">
+            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               Transações Recentes
             </h2>
             <Link

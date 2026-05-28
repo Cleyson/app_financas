@@ -38,7 +38,7 @@ export function TransactionFilters({ currentMonth, currentYear, currentType, cur
       <select
         value={currentMonth}
         onChange={(e) => update('month', e.target.value)}
-        className="h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
       >
         {MONTHS.map((m, i) => (
           <option key={m} value={i + 1}>{m}</option>
@@ -49,7 +49,7 @@ export function TransactionFilters({ currentMonth, currentYear, currentType, cur
       <select
         value={currentYear}
         onChange={(e) => update('year', e.target.value)}
-        className="h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
       >
         {years.map((y) => (
           <option key={y} value={y}>{y}</option>
@@ -60,7 +60,7 @@ export function TransactionFilters({ currentMonth, currentYear, currentType, cur
       <select
         value={currentType ?? ''}
         onChange={(e) => update('type', e.target.value)}
-        className="h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
       >
         <option value="">Todos os tipos</option>
         <option value="receita">Receitas</option>
@@ -71,7 +71,7 @@ export function TransactionFilters({ currentMonth, currentYear, currentType, cur
       <select
         value={currentCategory ?? ''}
         onChange={(e) => update('category', e.target.value)}
-        className="h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
       >
         <option value="">Todas as categorias</option>
         {filteredCategories.map((cat) => (

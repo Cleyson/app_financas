@@ -52,7 +52,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Tipo */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-slate-700">Tipo</label>
+        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Tipo</label>
         <div className="grid grid-cols-2 gap-2">
           {(['despesa', 'receita'] as const).map((t) => (
             <button
@@ -65,7 +65,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
                   ? t === 'receita'
                     ? 'bg-emerald-600 text-white border-emerald-600'
                     : 'bg-red-500 text-white border-red-500'
-                  : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                  : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
               )}
             >
               {t === 'receita' ? '↑ Receita' : '↓ Despesa'}
@@ -76,7 +76,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
 
       {/* Valor */}
       <div className="space-y-1.5">
-        <label htmlFor="amount" className="text-sm font-medium text-slate-700">
+        <label htmlFor="amount" className="text-sm font-medium text-slate-700 dark:text-slate-300">
           Valor (R$)
         </label>
         <input
@@ -88,13 +88,13 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
           required
           defaultValue={transaction?.amount}
           placeholder="0,00"
-          className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
       </div>
 
       {/* Data */}
       <div className="space-y-1.5">
-        <label htmlFor="date" className="text-sm font-medium text-slate-700">
+        <label htmlFor="date" className="text-sm font-medium text-slate-700 dark:text-slate-300">
           Data
         </label>
         <input
@@ -103,13 +103,13 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
           type="date"
           required
           defaultValue={transaction?.date ?? new Date().toISOString().split('T')[0]}
-          className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
       </div>
 
       {/* Categoria */}
       <div className="space-y-1.5">
-        <label htmlFor="category" className="text-sm font-medium text-slate-700">
+        <label htmlFor="category" className="text-sm font-medium text-slate-700 dark:text-slate-300">
           Categoria
         </label>
         <select
@@ -117,7 +117,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
           name="category"
           required
           defaultValue={transaction?.category ?? ''}
-          className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white"
+          className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         >
           <option value="" disabled>Selecione uma categoria</option>
           {categories.map((cat) => (
@@ -128,7 +128,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
 
       {/* Descrição */}
       <div className="space-y-1.5">
-        <label htmlFor="description" className="text-sm font-medium text-slate-700">
+        <label htmlFor="description" className="text-sm font-medium text-slate-700 dark:text-slate-300">
           Descrição <span className="text-slate-400 font-normal">(opcional)</span>
         </label>
         <input
@@ -137,19 +137,19 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
           type="text"
           defaultValue={transaction?.description ?? ''}
           placeholder="Ex: Supermercado, Salário..."
-          className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
       </div>
 
       {error && (
-        <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+        <p className="text-sm text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900 px-3 py-2.5 rounded-lg">{error}</p>
       )}
 
       <div className="flex gap-3 pt-1">
         <button
           type="button"
           onClick={() => router.back()}
-          className="flex-1 h-10 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition"
+          className="flex-1 h-10 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
         >
           Cancelar
         </button>

@@ -34,30 +34,30 @@ export function TransactionList({ transactions }: Props) {
       {transactions.map((t) => (
         <div
           key={t.id}
-          className="flex items-center gap-4 bg-white rounded-xl border border-slate-100 px-4 py-3 hover:border-slate-200 transition"
+          className="flex items-center gap-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 px-4 py-3 hover:border-slate-200 dark:hover:border-slate-700 transition"
         >
           <div
             className={`w-9 h-9 rounded-full flex items-center justify-center text-sm flex-shrink-0 font-bold ${
               t.type === 'receita'
-                ? 'bg-emerald-50 text-emerald-600'
-                : 'bg-red-50 text-red-500'
+                ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400'
+                : 'bg-red-50 dark:bg-red-950/30 text-red-500 dark:text-red-400'
             }`}
           >
             {t.type === 'receita' ? '↑' : '↓'}
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-slate-800 truncate">
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
               {t.description || t.category}
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 dark:text-slate-500">
               {t.category} · {formatDate(t.date)}
             </p>
           </div>
 
           <p
             className={`text-sm font-semibold flex-shrink-0 ${
-              t.type === 'receita' ? 'text-emerald-600' : 'text-red-500'
+              t.type === 'receita' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'
             }`}
           >
             {t.type === 'receita' ? '+' : '-'}
@@ -67,14 +67,14 @@ export function TransactionList({ transactions }: Props) {
           <div className="flex gap-1 flex-shrink-0">
             <Link
               href={`/transacoes/${t.id}/editar`}
-              className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:text-blue-600 hover:border-blue-200 transition text-xs"
+              className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-200 dark:hover:border-blue-700 transition text-xs"
             >
               ✏️
             </Link>
             <button
               onClick={() => handleDelete(t.id)}
               disabled={deletingId === t.id}
-              className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:text-red-600 hover:border-red-200 transition text-xs disabled:opacity-50"
+              className="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-700 transition text-xs disabled:opacity-50"
             >
               🗑️
             </button>
