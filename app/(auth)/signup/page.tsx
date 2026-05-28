@@ -7,6 +7,7 @@ import { signup } from '@/lib/actions/auth'
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [sentTo, setSentTo] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -22,7 +23,39 @@ export default function SignupPage() {
     if (result?.error) {
       setError(result.error)
       setLoading(false)
+      return
     }
+    if (result?.success && result.email) {
+      setSentTo(result.email)
+    }
+  }
+
+  // Tela de confirmação de e-mail
+  if (sentTo) {
+    return (
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center">
+        <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+          ✉️
+        </div>
+        <h1 className="text-xl font-semibold text-slate-900 mb-2">Verifique seu e-mail</h1>
+        <p className="text-slate-600 text-sm mb-1">
+          Enviamos um link de confirmação para:
+        </p>
+        <p className="font-medium text-slate-900 text-sm mb-4">{sentTo}</p>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-left mb-6">
+          <p className="text-amber-800 text-sm font-medium mb-1">⚠️ Verifique também o spam</p>
+          <p className="text-amber-700 text-xs">
+            O e-mail pode ter chegado na pasta de spam ou lixo eletrônico. Marque como "não é spam" para receber futuros e-mails normalmente.
+          </p>
+        </div>
+        <p className="text-slate-500 text-xs">
+          Após confirmar, volte para{' '}
+          <Link href="/login" className="text-blue-600 font-medium hover:underline">
+            fazer login
+          </Link>
+        </p>
+      </div>
+    )
   }
 
   return (

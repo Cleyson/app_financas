@@ -8,13 +8,23 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
+  function translateError(msg: string): string {
+    if (msg.toLowerCase().includes('email not confirmed'))
+      return 'E-mail não confirmado. Verifique sua caixa de entrada (e a pasta de spam) e clique no link de confirmação.'
+    if (msg.toLowerCase().includes('invalid login credentials'))
+      return 'E-mail ou senha incorretos.'
+    if (msg.toLowerCase().includes('too many requests'))
+      return 'Muitas tentativas. Aguarde alguns minutos e tente novamente.'
+    return msg
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     setError(null)
     const result = await login(new FormData(e.currentTarget))
     if (result?.error) {
-      setError(result.error)
+      setError(translateError(result.error))
       setLoading(false)
     }
   }
@@ -56,7 +66,7 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+          <p className="text-sm text-red-700 bg-red-50 border border-red-100 px-3 py-2.5 rounded-lg leading-relaxed">{error}</p>
         )}
 
         <button
