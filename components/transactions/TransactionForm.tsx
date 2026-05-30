@@ -42,10 +42,16 @@ function parseAmount(raw: string): number {
 export function TransactionForm({ transaction, onSuccess }: Props) {
   const router = useRouter()
   const [type, setType] = useState<'receita' | 'despesa'>(transaction?.type ?? 'despesa')
+  const [category, setCategory] = useState<string>(transaction?.category ?? '')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const categories = type === 'receita' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES
+
+  function handleTypeChange(newType: 'receita' | 'despesa') {
+    setType(newType)
+    setCategory('') // limpa categoria ao trocar tipo
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -61,11 +67,17 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
       return
     }
 
+    if (!category) {
+      setError('Selecione uma categoria')
+      setLoading(false)
+      return
+    }
+
     const formData = {
       type,
       amount,
       date: data.get('date') as string,
-      category: data.get('category') as string,
+      category,
       description: data.get('description') as string,
     }
 
@@ -94,7 +106,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
             <button
               key={t}
               type="button"
-              onClick={() => setType(t)}
+              onClick={() => handleTypeChange(t)}
               className={cn(
                 'h-10 rounded-lg text-sm font-medium border transition',
                 type === t
@@ -151,7 +163,8 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
           id="category"
           name="category"
           required
-          defaultValue={transaction?.category ?? ''}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
           className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         >
           <option value="" disabled>Selecione uma categoria</option>
