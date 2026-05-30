@@ -11,6 +11,28 @@ interface Props {
   onSuccess?: () => void
 }
 
+function parseAmount(raw: string): number {
+  const s = raw.trim().replace(/\s/g, '')
+  if (!s) return NaN
+  if (s.includes(',') && s.includes('.')) {
+    // "1.234,56" → dots = thousands sep, comma = decimal
+    return parseFloat(s.replace(/\./g, '').replace(',', '.'))
+  }
+  if (s.includes(',')) {
+    // "1234,56" → comma = decimal
+    return parseFloat(s.replace(',', '.'))
+  }
+  if (s.includes('.')) {
+    const parts = s.split('.')
+    const last = parts[parts.length - 1]
+    // "5.000" or "1.234.567" → dot = thousands sep
+    if (last.length === 3) return parseFloat(s.replace(/\./g, ''))
+    // "5.50" → dot = decimal
+    return parseFloat(s)
+  }
+  return parseFloat(s)
+}
+
 export function TransactionForm({ transaction, onSuccess }: Props) {
   const router = useRouter()
   const [type, setType] = useState<'receita' | 'despesa'>(transaction?.type ?? 'despesa')
@@ -25,9 +47,17 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
     setError(null)
 
     const data = new FormData(e.currentTarget)
+    const amount = parseAmount(data.get('amount') as string)
+
+    if (isNaN(amount) || amount <= 0) {
+      setError('Informe um valor válido maior que zero. Ex: 1500 ou 1.500,00')
+      setLoading(false)
+      return
+    }
+
     const formData = {
       type,
-      amount: Number(data.get('amount')),
+      amount,
       date: data.get('date') as string,
       category: data.get('category') as string,
       description: data.get('description') as string,
@@ -82,12 +112,11 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
         <input
           id="amount"
           name="amount"
-          type="number"
-          step="0.01"
-          min="0.01"
+          type="text"
+          inputMode="decimal"
           required
-          defaultValue={transaction?.amount}
-          placeholder="0,00"
+          defaultValue={transaction ? String(transaction.amount) : ''}
+          placeholder="Ex: 1500 ou 1.500,00"
           className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
       </div>
