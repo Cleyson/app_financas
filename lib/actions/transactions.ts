@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, getAuthUser } from '@/lib/supabase/server'
 import type { TransactionFormData } from '@/types'
 
 export async function getTransactions(filters?: {
@@ -10,8 +10,7 @@ export async function getTransactions(filters?: {
   type?: string
   category?: string
 }) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const [supabase, user] = await Promise.all([createClient(), getAuthUser()])
   if (!user) return { data: null, error: 'Não autenticado' }
 
   let query = supabase
@@ -42,8 +41,7 @@ export async function getTransactions(filters?: {
 }
 
 export async function createTransaction(formData: TransactionFormData) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const [supabase, user] = await Promise.all([createClient(), getAuthUser()])
   if (!user) return { error: 'Não autenticado' }
 
   const { error } = await supabase.from('transactions').insert({
@@ -63,8 +61,7 @@ export async function createTransaction(formData: TransactionFormData) {
 }
 
 export async function updateTransaction(id: string, formData: TransactionFormData) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const [supabase, user] = await Promise.all([createClient(), getAuthUser()])
   if (!user) return { error: 'Não autenticado' }
 
   const { error } = await supabase
@@ -87,8 +84,7 @@ export async function updateTransaction(id: string, formData: TransactionFormDat
 }
 
 export async function deleteTransaction(id: string) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const [supabase, user] = await Promise.all([createClient(), getAuthUser()])
   if (!user) return { error: 'Não autenticado' }
 
   const { error } = await supabase
@@ -105,8 +101,7 @@ export async function deleteTransaction(id: string) {
 }
 
 export async function getDashboardStats(month: number, year: number) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const [supabase, user] = await Promise.all([createClient(), getAuthUser()])
   if (!user) return { data: null, error: 'Não autenticado' }
 
   const start = `${year}-${String(month).padStart(2, '0')}-01`
