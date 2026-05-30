@@ -11,6 +11,12 @@ interface Props {
   onSuccess?: () => void
 }
 
+function formatAmountForInput(amount: number | string): string {
+  const n = Number(amount)
+  if (isNaN(n)) return ''
+  return n.toFixed(2).replace('.', ',')
+}
+
 function parseAmount(raw: string): number {
   const s = raw.trim().replace(/\s/g, '')
   if (!s) return NaN
@@ -115,7 +121,7 @@ export function TransactionForm({ transaction, onSuccess }: Props) {
           type="text"
           inputMode="decimal"
           required
-          defaultValue={transaction ? String(transaction.amount) : ''}
+          defaultValue={transaction ? formatAmountForInput(transaction.amount) : ''}
           placeholder="Ex: 1500 ou 1.500,00"
           className="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
