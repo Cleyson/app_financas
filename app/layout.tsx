@@ -6,7 +6,7 @@ import './globals.css'
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
 
 export const metadata: Metadata = {
-  title: 'FinançasPessoais',
+  title: 'Rotina Financeira do R2HGC',
   description: 'Gerencie suas finanças pessoais de forma simples e visual',
 }
 

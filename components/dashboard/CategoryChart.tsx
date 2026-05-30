@@ -8,6 +8,8 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 import { formatCurrency } from '@/lib/utils'
 
 const COLORS = [
@@ -21,9 +23,22 @@ interface Props {
 }
 
 export function CategoryChart({ data }: Props) {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
+  const isDark = mounted && resolvedTheme === 'dark'
+
+  const tooltipStyle = {
+    backgroundColor: isDark ? '#1e293b' : '#ffffff',
+    border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+    borderRadius: '8px',
+    color: isDark ? '#f1f5f9' : '#0f172a',
+  }
+
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-48 text-slate-400 text-sm">
+      <div className="flex items-center justify-center h-48 text-slate-400 dark:text-slate-500 text-sm">
         Nenhuma despesa registrada neste período
       </div>
     )
@@ -45,10 +60,16 @@ export function CategoryChart({ data }: Props) {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip formatter={(value: number) => formatCurrency(value)} />
+        <Tooltip
+          formatter={(value: number) => [formatCurrency(value), 'Valor']}
+          contentStyle={tooltipStyle}
+          labelStyle={{ color: isDark ? '#94a3b8' : '#64748b', fontWeight: 500 }}
+        />
         <Legend
           formatter={(value) => (
-            <span className="text-sm text-slate-600">{value}</span>
+            <span style={{ color: isDark ? '#94a3b8' : '#475569', fontSize: '13px' }}>
+              {value}
+            </span>
           )}
         />
       </PieChart>

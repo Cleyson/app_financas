@@ -18,9 +18,9 @@ export function Sidebar() {
     <aside className="hidden md:flex flex-col w-60 min-h-screen bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 transition-colors">
       <div className="flex items-center gap-2 px-2 mb-8">
         <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
-          <span className="text-white text-sm font-bold">F</span>
+          <span className="text-white text-sm font-bold">R</span>
         </div>
-        <span className="font-semibold text-slate-900 dark:text-slate-100">FinançasPessoais</span>
+        <span className="font-semibold text-slate-900 dark:text-slate-100 leading-tight">Rotina Financeira<br/><span className="text-xs font-normal text-slate-500 dark:text-slate-400">do R2HGC</span></span>
       </div>
 
       <nav className="flex-1 space-y-1">
