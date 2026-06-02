@@ -61,7 +61,7 @@ export function CategoryChart({ data }: Props) {
           ))}
         </Pie>
         <Tooltip
-          formatter={(value: number) => [formatCurrency(value), 'Valor']}
+          formatter={(value) => [formatCurrency(Number(value)), 'Valor']}
           contentStyle={tooltipStyle}
           labelStyle={{ color: isDark ? '#94a3b8' : '#64748b', fontWeight: 500 }}
         />
