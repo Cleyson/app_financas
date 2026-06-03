@@ -51,6 +51,7 @@ export default async function DashboardPage({ searchParams }: Props) {
         totalReceitas={stats.totalReceitas}
         totalDespesas={stats.totalDespesas}
         saldo={stats.saldo}
+        savingsTotal={savingsTotal}
       />
 
       {/* Charts + Recent Transactions + Cofrinho */}
