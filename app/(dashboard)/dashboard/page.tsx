@@ -1,9 +1,11 @@
 import { Suspense } from 'react'
 import { getDashboardStats } from '@/lib/actions/transactions'
+import { getSavingsTotal } from '@/lib/actions/savings'
 import { SummaryCards } from '@/components/dashboard/SummaryCards'
 import { CategoryChart } from '@/components/dashboard/CategoryChart'
 import { MonthPicker } from '@/components/dashboard/MonthPicker'
 import { TransactionList } from '@/components/transactions/TransactionList'
+import { PiggyBank } from '@/components/piggybank/PiggyBank'
 import Link from 'next/link'
 
 interface Props {
@@ -16,7 +18,10 @@ export default async function DashboardPage({ searchParams }: Props) {
   const month = Number(params.month) || now.getMonth() + 1
   const year = Number(params.year) || now.getFullYear()
 
-  const { data } = await getDashboardStats(month, year)
+  const [{ data }, { total: savingsTotal }] = await Promise.all([
+    getDashboardStats(month, year),
+    getSavingsTotal(),
+  ])
 
   const stats = data ?? {
     totalReceitas: 0,
@@ -29,7 +34,7 @@ export default async function DashboardPage({ searchParams }: Props) {
   const recentTransactions = stats.transactions.slice(0, 5)
 
   return (
-    <div className="space-y-6 max-w-5xl">
+    <div className="space-y-6 max-w-6xl">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -48,8 +53,8 @@ export default async function DashboardPage({ searchParams }: Props) {
         saldo={stats.saldo}
       />
 
-      {/* Charts + Recent Transactions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Charts + Recent Transactions + Cofrinho */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Category Chart */}
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-5 transition-colors">
           <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
@@ -64,15 +69,15 @@ export default async function DashboardPage({ searchParams }: Props) {
             <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               Transações Recentes
             </h2>
-            <Link
-              href="/transacoes"
-              className="text-xs text-blue-600 hover:underline"
-            >
+            <Link href="/transacoes" className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
               Ver todas →
             </Link>
           </div>
           <TransactionList transactions={recentTransactions} />
         </div>
+
+        {/* Cofrinho */}
+        <PiggyBank initialTotal={savingsTotal} />
       </div>
     </div>
   )

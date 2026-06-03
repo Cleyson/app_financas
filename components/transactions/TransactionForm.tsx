@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createTransaction, updateTransaction } from '@/lib/actions/transactions'
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES, type Transaction } from '@/types'
-import { cn } from '@/lib/utils'
+import { cn, parseAmount } from '@/lib/utils'
 
 interface Props {
   transaction?: Transaction
@@ -15,28 +15,6 @@ function formatAmountForInput(amount: number | string): string {
   const n = Number(amount)
   if (isNaN(n)) return ''
   return n.toFixed(2).replace('.', ',')
-}
-
-function parseAmount(raw: string): number {
-  const s = raw.trim().replace(/\s/g, '')
-  if (!s) return NaN
-  if (s.includes(',') && s.includes('.')) {
-    // "1.234,56" → dots = thousands sep, comma = decimal
-    return parseFloat(s.replace(/\./g, '').replace(',', '.'))
-  }
-  if (s.includes(',')) {
-    // "1234,56" → comma = decimal
-    return parseFloat(s.replace(',', '.'))
-  }
-  if (s.includes('.')) {
-    const parts = s.split('.')
-    const last = parts[parts.length - 1]
-    // "5.000" or "1.234.567" → dot = thousands sep
-    if (last.length === 3) return parseFloat(s.replace(/\./g, ''))
-    // "5.50" → dot = decimal
-    return parseFloat(s)
-  }
-  return parseFloat(s)
 }
 
 export function TransactionForm({ transaction, onSuccess }: Props) {

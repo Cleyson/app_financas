@@ -5,3 +5,36 @@
 @theme inline {
   --font-sans: var(--font-geist);
 }
+
+/* ── Piggy Bank animations ── */
+@keyframes pig-breathe {
+  0%, 100% { transform: scale(1) translateY(0px); }
+  50%       { transform: scale(1.08) translateY(-4px); }
+}
+
+@keyframes pig-wake {
+  0%   { transform: scale(1) rotate(0deg); }
+  10%  { transform: scale(1.1) rotate(-14deg); }
+  25%  { transform: scale(1.22) rotate(14deg); }
+  38%  { transform: scale(1.2) rotate(-10deg); }
+  52%  { transform: scale(1.14) rotate(10deg); }
+  65%  { transform: scale(1.07) rotate(-5deg); }
+  80%  { transform: scale(1.03) rotate(3deg); }
+  92%  { transform: scale(1.01) rotate(-1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes zzz-float {
+  0%   { opacity: 0; transform: translate(0, 2px) scale(0.5); }
+  15%  { opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(7px, -28px) scale(1.1); }
+}
+
+@layer utilities {
+  .animate-pig-breathe { animation: pig-breathe 3s ease-in-out infinite; }
+  .animate-pig-wake    { animation: pig-wake 0.65s cubic-bezier(0.36,0.07,0.19,0.97) both; }
+  .animate-zzz-1       { animation: zzz-float 2.6s ease-out 0s    infinite; }
+  .animate-zzz-2       { animation: zzz-float 2.6s ease-out 0.85s infinite; }
+  .animate-zzz-3       { animation: zzz-float 2.6s ease-out 1.7s  infinite; }
+}
